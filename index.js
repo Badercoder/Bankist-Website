@@ -37,6 +37,8 @@ function glitch() {
     hoverElement.style.top = y + 'px';
 }
 
+glitch();
+
 // Try Again button
 document.querySelector(".again").addEventListener("click", () => {
     chances = 20;

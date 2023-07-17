@@ -75,7 +75,7 @@ const check = document
                     document.querySelector(".number").style.width = "30rem";
                     document.querySelector(".btn").style.border = "white";
                     document.querySelector(".check").style.border = "white";
-                    document.querySelector(".reset").style.border = "rgb(255, 66, 0)";
+                    document.querySelector(".again").style.border = "rgb(255, 66, 0)";
                     document.querySelector(".number").textContent = number;
                     // highest Score
                     if(chances > highestScore) {

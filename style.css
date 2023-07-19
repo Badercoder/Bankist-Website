@@ -235,4 +235,8 @@ main {
   .btn--hold {
     top: 53rem;
   }
+
+  .hidden {
+    display: none;
+  }  
 }

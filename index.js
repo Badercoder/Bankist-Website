@@ -1,5 +1,7 @@
 "use strict";
 
+viewportElements();
+
 // Selecting Elements
 const score0El = document.querySelector("#score--0");
 const score1El = document.getElementById("score--1"); // faster
@@ -98,4 +100,23 @@ function scrollToElement(elementclass) {
     if(elementclass === "player--1")
         player1El.scrollIntoView();
     else bodyElement.scrollIntoView();
+}
+
+// Remove elemenets when on desktop
+function viewportElements() {
+    const viewportWidth = window.innerWidth;
+
+    if(viewportWidth <= 450) {
+        const desktop = document.querySelectorAll(".desktop");
+
+        desktop.forEach((elements) => {
+            elements.remove();
+        })
+    } else {
+        const mobile = document.querySelectorAll(".mobile");
+
+        mobile.forEach((elements) => {
+            elements.remove();
+        })
+    }
 }

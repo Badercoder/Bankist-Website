@@ -1,101 +1,101 @@
-"use strict"
-/*==================== Model ====================*/
-let chances = 20;
-document.querySelector(".score").textContent = chances;
+"use strict";
 
-// The Guess number
-let number = Math.trunc(Math.random() * 20 ) + 1;
-document.querySelector(".hover").textContent = number;
+// Selecting Elements
+const score0El = document.querySelector("#score--0");
+const score1El = document.getElementById("score--1"); // faster
+const current0El = document.getElementById("current--0");
+const current1El = document.getElementById("current--1");
+const diceEl = document.querySelector(".dice");
+const btnNew = document.querySelector(".btn--new");
+const btnRoll = document.querySelector(".btn--roll");
+const btnHold = document.querySelector(".btn--hold");
+const player0 = document.querySelector(".player--0")
+const player1 = document.querySelector(".player--1")
 
-// Highest Score
-let highestScore = 0;
+/*----------------- Model -----------------*/
+let socres, currentScore, activePlayer, playing;
 
-/*==================== View ====================*/
-// Render Message
-function message(text) {
-    const message = document.querySelector(".message");
-    let messageContent = message.textContent = text;
+function initialise() {
 
-    return messageContent;
+    // Starting Conditions
+    diceEl.classList.add("hidden");
+    score0El.textContent = 0;
+    score1El.textContent = 0;
+    current0El.textContent = 0;
+    current1El.textContent = 0;
+
+    socres = [0, 0];
+    currentScore = 0; // defined globally in order to have it persistent
+    activePlayer = 0;
+    playing = true;
+
+    player0.classList.remove("player--winner")
+    player1.classList.remove("player--winner")
+    player0.classList.add("player--active")
+    player1.classList.remove("player--active")
+    scrollToElement();
 }
 
-// Render Score
-function renderScore(chances) {
-    const score = document.querySelector(".score");
-    let scoreUpdated = score.textContent = chances;
+initialise();
 
-    return scoreUpdated;
-}
-
-// Function to randomly position the '.hover' element
-function glitch() {
-    const hoverElement = document.querySelector(".hover");
-    const x = Math.random() * (window.innerWidth - hoverElement.clientWidth);
-    const y = Math.random() * (window.innerHeight - hoverElement.clientHeight);
-
-    hoverElement.style.left = x + 'px';
-    hoverElement.style.top = y + 'px';
-}
-
-glitch();
-
-// Try Again button
-document.querySelector(".again").addEventListener("click", () => {
-    chances = 20;
-    document.querySelector(".score").textContent = chances;
-    number = Math.trunc(Math.random() * 20 ) + 1;
-    document.querySelector(".hover").textContent = number;
-    document.querySelector("body").style.background = "#222";
-    document.querySelector(".number").style.width = "15rem";
-    document.querySelector(".number").textContent = "?";
-    document.querySelector(".guess").value = ""
-    message("🎮 Start guessing...");
-    document.querySelector(".highestScore").value = 0;
-
-    glitch();
+// Rolling Dice Functionality
+btnRoll.addEventListener("click", () => {
+    if (playing) {
+        // 1. Generate a random number
+        const dice = Math.trunc(Math.random() * 6 + 1);
+    
+        // 2. Display the Dice
+        diceEl.classList.remove("hidden");
+        diceEl.src = `images/dice-${dice}.png`
+    
+        // 3. Check if rolled = 1
+        if(dice !== 1) {
+            currentScore += dice;
+            document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+        } else {
+        //  switch to the next player
+            switchPlayer();
+            scrollToElement(`player--${activePlayer}`);
+        }
+    }
 })
 
-// Rest Button
-document.querySelector(".reset").addEventListener("click", () => {
-    location.reload();
+btnHold.addEventListener("click", () => {
+    if (playing) {
+        // 1. add current score to the Active Player's Score
+        socres[activePlayer] += currentScore;
+        document.getElementById(`score--${activePlayer}`).textContent = socres[activePlayer];
+        // 2. Check if the Active Player's Score is >= 100
+        if(socres[activePlayer] >= 20) {
+            // Finish the Game
+            playing = false;
+            diceEl.classList.add("hidden");
+            document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
+            document.querySelector(`.player--${activePlayer}`).classList.remove("player--active");
+        } else {
+            // 3. Switch to the Next Player
+            switchPlayer();
+            scrollToElement(`player--${activePlayer}`);
+        }
+    }
 })
 
-/*==================== Controller ====================*/
-// User input
-const check = document
-             .querySelector(".check")
-             .addEventListener("click", () => {
-                const input = Number(document.querySelector(".guess").value);
+function switchPlayer() {
+    currentScore = 0;
+    document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+    activePlayer = (activePlayer === 0) ? 1 : 0;
+    player0.classList.toggle("player--active");
+    player1.classList.toggle("player--active");
+}
 
-                if(!input) 
-                    message("⛔ choose from 1 to 20");
-                else if (input === number)  {
-                    message("🎉 Correct !");
-                    document.querySelector("body").style.background = "#60b347";
-                    document.querySelector(".number").style.width = "30rem";
-                    document.querySelector(".btn").style.border = "white";
-                    document.querySelector(".check").style.border = "white";
-                    document.querySelector(".again").style.border = "rgb(255, 66, 0)";
-                    document.querySelector(".number").textContent = number;
-                    // highest Score
-                    if(chances > highestScore) {
-                        highestScore = chances;
-                        document.querySelector(".highestScore").textContent =highestScore;
-                        console.log(highestScore);
-                    }
-                }
-                else if (chances === 1) {
-                    message("💥 You Lost the Game");
-                    renderScore(0);
-                }
-                else if (input > number) {
-                    message("📉 Try lower");
-                    chances--;
-                    renderScore(chances);
-                }
-                else if (input < number) {
-                    message("📈 Try higer");
-                    chances--;
-                    renderScore(chances);
-                }
-});
+btnNew.addEventListener("click", initialise);
+
+// Scroll to a specific element on the page
+function scrollToElement(elementclass) {
+    const bodyElement = document.querySelector("body");
+    const player1El = document.querySelector(".player--1")
+
+    if(elementclass === "player--1")
+        player1El.scrollIntoView();
+    else bodyElement.scrollIntoView();
+}

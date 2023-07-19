@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guess My Number!</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <main>
+        <section class="player player--0 player--active">
+            <h2 class="name" id="name--0">Player 1</h2>
+            <p class="score" id="score--0">0</p>
+            <div class="current">
+                <p class="current-label"></p>
+                <p class="current-score" id="current--0">0</p>
+            </div>
+        </section>
 
-  <header>
-    <button class="btn reset">Reset</button>
-    <p class="between">(Choose from 1 to 20)</p>
-    <h1>Guess The Hidden Number!</h1>
-    <div class="number">?</div>
-    <p class="hover"></p>
-  </header>
+        <section class="player player--1">
+            <h2 class="name" id="name--1">Player 2</h2>
+            <p class="score" id="score--1">0</p>
+            <div class="current">
+                <p class="current-label"></p>
+                <p class="current-score" id="current--1">0</p>
+            </div>
 
-  <main class="grid__3x1">
-    <section class="left">
-      <input type="number" class="guess" />
-      <button class="btn check">Check!</button>
-    </section>
+        </section>
 
-    <section class="right">
-      <p class="message">🎮 Start guessing...</p>
-      <p class="label-score">💯 Score:
-        <span class="score"></span>
-      </p>
-      <p class="label-highscore">🥇 Highest Score:
-        <span class="highestScore">0</span>
-      </p>
-    </section>
+        <!-- <img src="images/dice-0.png" alt="Playing Dice" class="dice" />
+        <button class="btn btn--new desktop">🔁 New Game</button>
+        <button class="btn btn--roll desktop">🎲 Roll Dice</button>
+        <button class="btn btn--hold desktop">📥 Hold</button> -->
+    </main>
 
-    <button class="btn again">Again</button>
-  </main>
-
-  
-  <script src="index.js"></script>
+    <img src="images/dice-0.png" alt="Playing Dice" class="dice" />
+    <button class="btn btn--new mobile">🔁 New Game</button>
+    <button class="btn btn--roll mobile">🎲 Roll Dice</button>
+    <button class="btn btn--hold mobile">📥 Hold</button>
+    
+    <script src="index.js"></script>
 </body>
 </html>

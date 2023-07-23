@@ -1,6 +1,7 @@
 @import url(/css/nav-n-footer.css);
 @import url(/css/sections.css);
 @import url(/css/components.css);
+@import url(/css/animation.css);
 
 :root {
   --color-primary: #5ec576;

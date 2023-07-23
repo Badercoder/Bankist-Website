@@ -37,12 +37,18 @@ document.addEventListener('keydown', function (e) {
 /*---------------------- Cookies Message -----------------------*/
 const message = document.createElement("div");
 message.classList.add("cookie-message"); 
-
-message.innerHTML = `We use Cookies to improve functionality and analytics <button class="btn btn--close-cookie">Got it!</button>`;
+message.innerHTML = `We use Cookies to improve functionality and for web analytics <button class="btn btn--close-cookie">Got it!</button>`;
+message.setAttribute("open", "");
 
 header.before(message);
 
-deleteElement(message);
+// to fade-out before closing the element
+message.addEventListener("click", () => {
+  message.style.animation = "fade-out 0.5s";
+  message.addEventListener("animationend", () => {
+    message.remove();
+  }, {once: true})
+})
 
 /*--------------------------------------------------------------*/
 

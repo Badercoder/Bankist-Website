@@ -34,15 +34,17 @@ document.addEventListener('keydown', function (e) {
 });
 /*--------------------------------------------------------------*/
 
-/*---- Cookies Message ----*/
+/*---------------------- Cookies Message -----------------------*/
 const message = document.createElement("div");
 message.classList.add("cookie-message"); 
 
-message.innerHTML = 'We use Cookies to improve functionality and analytics <button class="btn btn--close-cookie">Got it!</button>';
+message.innerHTML = `We use Cookies to improve functionality and analytics <button class="btn btn--close-cookie">Got it!</button>`;
 
 header.before(message);
 
 deleteElement(message);
+
+/*--------------------------------------------------------------*/
 
 /*---- Delete Elements ----*/
 function deleteElement(element) {
@@ -50,3 +52,4 @@ function deleteElement(element) {
     element.remove();
   })
 }
+/*-------------------------*/
